@@ -1,5 +1,5 @@
 
-public abstract class Instrumento {
+public abstract class ControladorDeInstrumento {
 	
 	private int BPM = 0;
 	private int volume = 0;
