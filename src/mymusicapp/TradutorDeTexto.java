@@ -7,13 +7,18 @@ public class TradutorDeTexto {
 	String texto;
 	public TradutorDeTexto(String texto) {
 		this.texto = texto;
+		
 	}
 	
 	private void traduzTexto() {
-		  Map<String, String> map = new HashMap<String, String>();
-		  map.put("key1", "value1");
-		  map.put("key2", "value2");
-		  map.put("key3", "value3");
-	
+
+		this.texto.replaceAll("a","A");
+		this.texto.replaceAll("b","B");
+		this.texto.replaceAll("c","C");
+		this.texto.replaceAll("d","D");
+		this.texto.replaceAll("e","E");
+		this.texto.replaceAll("f","F");
+		this.texto.replaceAll("g","G");
+		
 	}
 }
