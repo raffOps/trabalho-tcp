@@ -1,8 +1,7 @@
 package mymusicapp;
 
 import java.util.HashMap;
-
-import com.sun.javafx.collections.MappingChange.Map;
+import java.util.Map;
 
 public class TradutorDeTexto {
 	String texto;
@@ -14,8 +13,7 @@ public class TradutorDeTexto {
 		  Map<String, String> map = new HashMap<String, String>();
 		  map.put("key1", "value1");
 		  map.put("key2", "value2");
-		   map.put("key3", "value3");
-
-		
+		  map.put("key3", "value3");
+	
 	}
 }
