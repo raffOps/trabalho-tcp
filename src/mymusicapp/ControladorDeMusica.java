@@ -18,12 +18,12 @@ public class ControladorDeMusica {
 			this.volume = 50;
 			this.oitava_default = 2;
 			this.oitava = 3;
-			this.BPM = 120;	
+			this.BPM = 100;	
 			this.instrumento_id = 1;
 	
 	}
 	
-	public void traduz_char(char ch) {
+	public void traduz_char(char ch) throws InterruptedException {
 		switch (ch) {
 		case 'a':
 		case 'A': this.patter = new Pattern("A");
@@ -46,7 +46,7 @@ public class ControladorDeMusica {
 		case 'g':
 		case 'G': this.patter = new Pattern("G");
 		          break;
-		case ' ': //
+		case ' ': TimeUnit.SECONDS.sleep(1);
 		          break;
 		case '!': this.volume *= 2;
 		          break;
@@ -83,7 +83,7 @@ public class ControladorDeMusica {
 	}
 
 	
-	public void toca_musica() {
+	public void toca_musica() throws InterruptedException {
 		Player player = new Player();
 		for (char ch: string_musical.toCharArray()) {
 			this.traduz_char(ch); 
