@@ -143,8 +143,9 @@ public class Interface extends javax.swing.JFrame {
        abreInterfaceDeSalvar();
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public void abreInterfaceDeSalvar(){
+    public static void abreInterfaceDeSalvar(){
        InterfaceDeSalvar frame = new InterfaceDeSalvar();
+       frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
        frame.setVisible(true);
     }
     
@@ -183,14 +184,21 @@ public class Interface extends javax.swing.JFrame {
             
                 @Override
                 public void windowClosing(WindowEvent evt){
-                   
+                   int dialogoConfirma = JOptionPane.showConfirmDialog(null,"Deseja Salvar?");
                    //JOptionPane.showMessageDialog(null, "Tem certeza que deseja fechar? (Não esqueça de salvar)");
-                    if (JOptionPane.showConfirmDialog(null,"Deseja Salvar?")==JOptionPane.OK_OPTION){
-                    InterfaceDeSalvar frame = new InterfaceDeSalvar();
-                    frame.setVisible(true);    }
-                   
-                   //System.exit(0);
-                   
+                    if (dialogoConfirma==JOptionPane.OK_OPTION)
+                    {
+                        abreInterfaceDeSalvar();
+                    }
+                    else
+                    {   
+                        if(dialogoConfirma==JOptionPane.NO_OPTION)
+                        {
+                            System.exit(0);
+                        }
+                                  
+                    }   
+                                      
                 }
             
             });

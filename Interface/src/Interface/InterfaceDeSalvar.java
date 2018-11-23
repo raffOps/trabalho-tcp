@@ -5,6 +5,12 @@
  */
 package Interface;
 
+import static Interface.Interface.abreInterfaceDeSalvar;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author beret
@@ -116,10 +122,15 @@ public class InterfaceDeSalvar extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfaceDeSalvar().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            InterfaceDeSalvar teladesalvar = new InterfaceDeSalvar();
+            
+            teladesalvar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            teladesalvar.addWindowListener(new WindowAdapter(){
+                   
+                
+            });
         });
     }
 
