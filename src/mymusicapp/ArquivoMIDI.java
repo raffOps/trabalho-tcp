@@ -1,10 +1,13 @@
+/*
+    EXECUTE NO MODO ADMINISTRADOR CASO DE ERRO NA HORA DE EXECUÇÃO!!!!
+*/
+
 package mymusicapp;
 
 import java.io.File;
 import java.io.IOException;
-import org.jfugue.pattern.Pattern;
-import org.jfugue.player.Player;
-import org.jfugue.midi.MidiFileManager;
+import org.jfugue.Pattern;
+import org.jfugue.Player;
 
 public class ArquivoMIDI {
     
@@ -14,14 +17,14 @@ public class ArquivoMIDI {
     {
         this.string_musica = string_musica;
     }
-    
-    public void SalvaArquivo(String nome_escolhido) throws IOException
-    {
-        nome_escolhido = "Test";
+    // COLOCAR A VARIAVEL Q GUARDA O TEXTO DA INTERFACE E POR NO "nome_do_arquivo"
+    public void SalvaArquivo(String nome_do_arquivo) throws IOException 
+    {   
+        File arquivo = new File(nome_do_arquivo + ".mid");
+        arquivo.setWritable(true);
         Pattern padrao = new Pattern(this.string_musica);
         Player tocador = new Player();
-        MidiFileManager.savePatternToMidi(padrao, new File(nome_escolhido + ".mid"));
-    
+        tocador.saveMidi(padrao, arquivo);
     
     }
     
