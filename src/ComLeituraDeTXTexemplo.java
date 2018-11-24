@@ -12,8 +12,8 @@
 
 
 
-import org.jfugue.pattern.Pattern;
-import org.jfugue.player.Player;
+import org.jfugue.Pattern;
+import org.jfugue.Player;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -58,7 +58,7 @@ public class ComLeituraDeTXTexemplo
     return conteudo;
 }
 
-private static Pattern ControladorDeInstrumentos(String texto, int voz, int instrumento, int tempo){
+/*private static Pattern ControladorDeInstrumentos(String texto, int voz, int instrumento, int tempo){
 
     Pattern pattern = new Pattern(texto)
            .setVoice(voz)                 //PARA INSTRUMENTOS DE PERCUSÃO COMO BATERIA E DERIVADOS COLOQUE 9 NO setVoice.
@@ -66,7 +66,7 @@ private static Pattern ControladorDeInstrumentos(String texto, int voz, int inst
            .setInstrument(instrumento)            // CADA NUMERO É UM INSTRUMENTO, LISTA DE INSTRUMENTOS https://www.cs.utexas.edu/ftp/novak/cs315/jfugue-chapter2.pdf
            .setTempo(tempo);              // O TEMPO É O BPM.
     
-    return pattern;
+    return pattern;*/
 }
  
 }

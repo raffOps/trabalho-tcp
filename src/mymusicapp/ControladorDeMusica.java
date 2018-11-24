@@ -1,7 +1,7 @@
 package mymusicapp;
 import java.util.concurrent.TimeUnit;
-import org.jfugue.player.Player;
-import org.jfugue.pattern.Pattern;
+import org.jfugue.Player;
+import org.jfugue.Pattern;
 
 public class ControladorDeMusica {
 	
