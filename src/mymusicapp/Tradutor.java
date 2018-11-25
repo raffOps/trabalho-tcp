@@ -13,7 +13,7 @@ public class Tradutor {
 
 	public Tradutor(String string_musical) {
 		this.string_musical = string_musical;
-		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
+		this.adiona_volume_inicial_na_string_musical();
 	}
 
 	public String traduz_musica() {
@@ -97,12 +97,17 @@ public class Tradutor {
         this.string_musical_traduzida += String.format( "I[%d] ", this.instrumento_id);
 	}
 	
+	
 	private void aumenta_volume(int quantidade_de_volume_aumentado) {
 		if ((this.volume + quantidade_de_volume_aumentado) <= Tradutor.VOLUME_MAXIMO) {
 			this.volume += quantidade_de_volume_aumentado;
 		} else {
 			this.volume = Tradutor.VOLUME_MAXIMO;
 		}
+		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
+	}
+	
+	private void adiona_volume_inicial_na_string_musical() {
 		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
 	}
 	
