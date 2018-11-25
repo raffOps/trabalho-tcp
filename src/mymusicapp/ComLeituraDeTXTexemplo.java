@@ -1,3 +1,4 @@
+package mymusicapp;
 
 //NÃO ESQUEÇA DE ADICIONAR O SEU PACKAGE
 

@@ -1,8 +1,9 @@
+package mymusicapp;
 /*
     EXECUTE NO MODO ADMINISTRADOR CASO DE ERRO NA HORA DE EXECUÇÃO!!!!
 */
 
-package mymusicapp;
+
 
 import java.io.File;
 import java.io.IOException;

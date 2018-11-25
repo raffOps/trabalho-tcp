@@ -1,80 +1,55 @@
 package mymusicapp;
-
-import java.util.HashMap;
-import java.util.Map;
 public class Tradutor {
 
-	private int oitava_default = 5;
-	private int oitava = oitava_default;
-	private int volume = 1000;
+	private static int OITAVA_DEFAULT = 5;
+	private static int VOLUME_MAXIMO = 6900000;
+	private int oitava = Tradutor.OITAVA_DEFAULT;
+	private int volume = 4300000;
 	private int BPM = 120;
 	private int instrumento_id = 1;
 	private String string_musical;
-/*	private static Map<Integer, String> dicionario_intrumentos =  new HashMap<Integer, String>() {{
-		put(1, "PIANO");
-		put(2, "GUITAR");
-		put(3, "MARIMBA");
-		put(4, "VIOLA");
-	}};
-
-	private static Map<Integer, String> dicionario_BPM = new HashMap<Integer, String>() {{
-		put(120, "ALLEGRO");
-		put(40, "GRAVE");
-		put(180, "PRESTO");
-	}};*/
+	private String string_musical_traduzida = "";
+	private String caractere_atual = "";
 
 	public Tradutor(String string_musical) {
 		this.string_musical = string_musical;
+		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
 	}
 
 	public String traduz_musica() {
 
-		String nova_string_musical = "";
-		String nota_atual = "";
-		for (char ch: this.string_musical.toCharArray()){
-			switch (ch) {
-			case 'A': nova_string_musical += String.format(" A%d", this.oitava);
-			nota_atual = String.format(" A%d", this.oitava);
-			break;
-			case 'B': nova_string_musical += String.format(" B%d", this.oitava);
-			nota_atual = String.format(" B%d", this.oitava);
-			break;
-			case 'C': nova_string_musical += String.format(" C%d", this.oitava);
-			nota_atual = String.format(" C%d", this.oitava);
-			break;
-			case 'D': nova_string_musical += String.format(" D%d", this.oitava);
-			nota_atual = String.format(" D%d", this.oitava);
-			break;
-			case 'E': nova_string_musical += String.format(" E%d", this.oitava);
-			nota_atual = String.format(" E%d", this.oitava);
-			break;
-			case 'F': nova_string_musical += String.format(" F%d", this.oitava);
-			nota_atual = String.format(" F%d", this.oitava);
-			break;
-			case 'G': nova_string_musical += String.format(" G%d", this.oitava);
-			nota_atual = String.format(" G%d", this.oitava);
-			break;
+		for (char nota: this.string_musical.toCharArray()){
+			switch (nota) {
+			case 'A':
+			case 'B':
+			case 'C':
+			case 'D': 
+			case 'E': 
+			case 'F': 
+			case 'G':  this.adiciona_nota("" + nota);
+			           break;
 			case 'a':
 			case 'b':
 			case 'c':
 			case 'd':
 			case 'e':
 			case 'f':
-			case 'g': nova_string_musical += nota_atual;
-					  break;
-			case '!': this.instrumento_id = 7;
-			          nova_string_musical += String.format( "I[%d]", this.instrumento_id);
-					  break;
+			case 'g': if ("ABCDEFG".contains(this.caractere_atual)) {
+				            this.adiciona_nota(this.caractere_atual);
+			          } else {
+				             this.adiciona_pausa();
+			          }
+			break;
+			case '!': this.muda_instrumento(7);
+			break;
 			case 'i':
 			case 'I':
-			case 'o':
+		    case 'o':
 			case 'O':
 			case 'u':
-			case 'U': this.volume *= 1.1;
-					  nova_string_musical += String.format("X[Volume]=%d", this.volume);
-					  break;
-			
-			case '0':
+			case 'U': this.aumenta_volume((int) (this.volume * 0.1));
+				      break;
+		    case '0':
 			case '1':
 			case '2':
 			case '3':
@@ -83,41 +58,64 @@ public class Tradutor {
 			case '6':
 			case '7':
 			case '8':
-			case '9':   
-				    String s = "" + ch;
-					this.instrumento_id += Integer.parseInt(s);
-					nova_string_musical += String.format(" I[%d]", this.instrumento_id);
-					break;
+			case '9': this.muda_instrumento(this.instrumento_id + Integer.parseInt("" + nota));
+			          break;
 			case '?':
-			case '.': if (this.oitava == 8) {
-							this.oitava = this.oitava_default;
-					  } else {
-						  this.oitava += 1;
-					  }
+			case '.': this.aumenta_oitava(1);
 			          break;
-			case '\n': this.instrumento_id = 15;
-			           nova_string_musical += String.format( "I[%d]", this.instrumento_id);
+			case '\n': this.muda_instrumento(15);
 			           break;
-			case ';': this.instrumento_id = 76;
-			          nova_string_musical += String.format( "I[%d]", this.instrumento_id);
+			case ';': this.muda_instrumento(76);
 			          break;
-			          
-			case ',': this.instrumento_id = 20;
-	               	  nova_string_musical += String.format( "I[%d]", this.instrumento_id);
-	               	
-			default: if("bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ".contains(String.valueOf(ch))) {
-				     	if("ABCDFEF".contains(String.valueOf(ch))) {
-				                nova_string_musical += nota_atual;
-				     	} else {
-				     		nova_string_musical += " @200";	
-			              }
-				     }
-			         else {
-			        	 nova_string_musical += " @200";
-			         }
+
+			case ',': this.muda_instrumento(20);
+			          break;
+			case ' ': this.aumenta_volume(this.volume);
+			          break;
+			default: if("bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ".contains(String.valueOf(nota))) {
+				if("ABCDFEF".contains(String.valueOf(nota))) {
+					this.string_musical_traduzida += this.caractere_atual;
+				} else {
+					this.adiciona_pausa();
+				}
 			}
+			else {
+				this.adiciona_pausa();
+			}
+			}
+		this.caractere_atual = "" + nota;
 		}
-	
-		return nova_string_musical;
+		return this.string_musical_traduzida;
 	}
+	
+	private void adiciona_nota(String nota) {
+		this.string_musical_traduzida += String.format("%s%d ", nota, this.oitava);
+	}
+	
+	private void muda_instrumento(int novo_instrumento_id) {
+		this.instrumento_id = novo_instrumento_id;
+        this.string_musical_traduzida += String.format( "I[%d] ", this.instrumento_id);
+	}
+	
+	private void aumenta_volume(int quantidade_de_volume_aumentado) {
+		if ((this.volume + quantidade_de_volume_aumentado) <= Tradutor.VOLUME_MAXIMO) {
+			this.volume += quantidade_de_volume_aumentado;
+		} else {
+			this.volume = Tradutor.VOLUME_MAXIMO;
+		}
+		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
+	}
+	
+	private void aumenta_oitava(int quantidade_de_oitava_aumentada) {
+		if ((this.oitava + quantidade_de_oitava_aumentada) > 8) {
+			this.oitava = Tradutor.OITAVA_DEFAULT;
+		} else {
+			this.oitava += quantidade_de_oitava_aumentada;
+		}
+	}
+	
+	private void adiciona_pausa() {
+		this.string_musical_traduzida += "@400 ";	
+	}
+
 }
