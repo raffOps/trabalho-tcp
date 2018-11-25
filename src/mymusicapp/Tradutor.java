@@ -13,11 +13,13 @@ public class Tradutor {
 
 	public Tradutor(String string_musical) {
 		this.string_musical = string_musical;
-		this.adiona_volume_inicial_na_string_musical();
 	}
 
 	public String traduz_musica() {
 
+
+		this.adiciona_volume_inicial_na_string_musical();
+		
 		for (char nota: this.string_musical.toCharArray()){
 			switch (nota) {
 			case 'A':
@@ -107,7 +109,7 @@ public class Tradutor {
 		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
 	}
 	
-	private void adiona_volume_inicial_na_string_musical() {
+	private void adiciona_volume_inicial_na_string_musical() {
 		this.string_musical_traduzida += String.format("X[Volume]=%d ", this.volume);
 	}
 	
