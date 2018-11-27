@@ -169,7 +169,7 @@ public class Tradutor
 	
 	private void adiciona_pausa() 
 	{
-		this.string_musical_traduzida += "@400 ";	
+		this.string_musical_traduzida += "Rq ";	
 	}
 
 }
