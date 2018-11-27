@@ -26,14 +26,17 @@ public class InterfaceDeSalvar extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void set_texto(String texto_salvar)
-    {   
-        if("".equals(texto_salvar) || texto_salvar == null)
+    public void set_Texto(String texto_salvar)
+    {        
+        this.texto_traduzido = texto_salvar;
+    }
+    
+    public void testa_Vazio(String texto)
+    {
+        if("".equals(texto) || texto == null || "Digite sua música...".equals(texto))
         {
             JOptionPane.showMessageDialog(this, "O texto está vazio", "WARNING!", JOptionPane.WARNING_MESSAGE, null);
         }
-        
-        this.texto_traduzido = texto_salvar;
     }
     /**
      * This method is called from within the constructor to initialize the form.

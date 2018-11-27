@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
 
 public class Interface extends javax.swing.JFrame 
 { 
-    public Interface() {
+    public Interface() 
+    {
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -20,27 +21,30 @@ public class Interface extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         areadetexto = new javax.swing.JTextArea();
-        BotaoExecuta = new javax.swing.JButton();
+        botaoexecuta = new javax.swing.JButton();
         instrumentos = new javax.swing.JSpinner();
         volume = new javax.swing.JSlider();
         textovolume = new javax.swing.JLabel();
         textoinstrumentos = new javax.swing.JLabel();
         textobpms = new javax.swing.JLabel();
         bpms = new javax.swing.JSpinner();
-        BotaoSalvar = new javax.swing.JButton();
+        botaosalvar = new javax.swing.JButton();
+        oitava = new javax.swing.JSpinner();
+        textooitava = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         areadetexto.setColumns(20);
         areadetexto.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         areadetexto.setRows(5);
+        areadetexto.setText("Digite sua música...");
         jScrollPane1.setViewportView(areadetexto);
 
-        BotaoExecuta.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        BotaoExecuta.setText("Executar");
-        BotaoExecuta.addActionListener(new java.awt.event.ActionListener() {
+        botaoexecuta.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        botaoexecuta.setText("Play");
+        botaoexecuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoExecutaActionPerformed(evt);
+                botaoExecutaAcao(evt);
             }
         });
 
@@ -48,7 +52,7 @@ public class Interface extends javax.swing.JFrame
         instrumentos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         instrumentos.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                instrumentosStateChanged(evt);
+                instrumentosAlteraEstado(evt);
             }
         });
 
@@ -72,12 +76,20 @@ public class Interface extends javax.swing.JFrame
 
         bpms.setModel(new javax.swing.SpinnerNumberModel(120, 20, 999, 1));
 
-        BotaoSalvar.setText("Salvar");
-        BotaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+        botaosalvar.setText("Salvar");
+        botaosalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoSalvarActionPerformed(evt);
+                botaoSalvarAcao(evt);
             }
         });
+
+        oitava.setModel(new javax.swing.SpinnerNumberModel(5, 0, 9, 1));
+
+        textooitava.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textooitava.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textooitava.setLabelFor(bpms);
+        textooitava.setText("Oitava");
+        textooitava.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,9 +101,18 @@ public class Interface extends javax.swing.JFrame
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(BotaoExecuta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoexecuta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(textooitava, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(oitava, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textobpms, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bpms, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(textoinstrumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -101,16 +122,11 @@ public class Interface extends javax.swing.JFrame
                         .addComponent(volume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(textobpms, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bpms, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(textovolume, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(136, 136, 136))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
-                .addComponent(BotaoSalvar)
+                .addComponent(botaosalvar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,12 +147,14 @@ public class Interface extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textobpms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bpms, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(bpms, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(oitava, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textooitava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotaoExecuta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botaoexecuta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotaoSalvar)
+                .addComponent(botaosalvar)
                 .addContainerGap())
         );
 
@@ -144,12 +162,14 @@ public class Interface extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
     
     private static String texto_traduzido = new String();
+    private static String areatexto = new String();
     
-    private void BotaoExecutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExecutaActionPerformed
+    private void botaoExecutaAcao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExecutaAcao
         
-        String areatexto = areadetexto.getText();
+        String areadotexto = areadetexto.getText();
         
-        Tradutor tradutor = new Tradutor(areatexto);
+        Tradutor tradutor = new Tradutor(areadotexto);
+        tradutor.set_Oitava((int) oitava.getValue());
         tradutor.set_Bpm((int) bpms.getValue());
         tradutor.set_Instrumento((int) instrumentos.getValue());
         tradutor.set_Volume((int) volume.getValue());
@@ -158,13 +178,13 @@ public class Interface extends javax.swing.JFrame
         Tocador tocador = new Tocador(Interface.texto_traduzido);
         tocador.toca_musica();
         
-    }//GEN-LAST:event_BotaoExecutaActionPerformed
+    }//GEN-LAST:event_botaoExecutaAcao
 
-    private void BotaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvarActionPerformed
+    private void botaoSalvarAcao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAcao
         abreInterfaceDeSalvar();
-    }//GEN-LAST:event_BotaoSalvarActionPerformed
+    }//GEN-LAST:event_botaoSalvarAcao
 
-    private void instrumentosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_instrumentosStateChanged
+    private void instrumentosAlteraEstado(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_instrumentosAlteraEstado
         //int valor = (int) instrumentos.getValue();
         switch((int) instrumentos.getValue())
         {           
@@ -264,11 +284,13 @@ public class Interface extends javax.swing.JFrame
             default:
                 textoinstrumentos.setText("Acoustic Grand Piano");                
         }
-    }//GEN-LAST:event_instrumentosStateChanged
+    }//GEN-LAST:event_instrumentosAlteraEstado
     
-    private static void abreInterfaceDeSalvar(){
-       InterfaceDeSalvar frame = new InterfaceDeSalvar();
-       frame.set_texto(Interface.texto_traduzido);
+    private static void abreInterfaceDeSalvar()
+    {   
+       InterfaceDeSalvar frame = new InterfaceDeSalvar(); 
+       frame.testa_Vazio(Interface.areatexto);
+       frame.set_Texto(Interface.texto_traduzido);
        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
        frame.setVisible(true);
     }
@@ -328,14 +350,16 @@ public class Interface extends javax.swing.JFrame
     }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoExecuta;
-    private javax.swing.JButton BotaoSalvar;
     private javax.swing.JTextArea areadetexto;
+    private javax.swing.JButton botaoexecuta;
+    private javax.swing.JButton botaosalvar;
     private javax.swing.JSpinner bpms;
     private javax.swing.JSpinner instrumentos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner oitava;
     private javax.swing.JLabel textobpms;
     private javax.swing.JLabel textoinstrumentos;
+    private javax.swing.JLabel textooitava;
     private javax.swing.JLabel textovolume;
     private javax.swing.JSlider volume;
     // End of variables declaration//GEN-END:variables
